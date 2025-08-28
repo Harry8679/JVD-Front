@@ -4,7 +4,7 @@ import React from "react";
 // Drop this component into your app and ensure Tailwind is configured.
 // The design mirrors the provided screenshot with fully responsive behavior.
 
-export default function VousHeader() {
+export default function Header() {
   return (
     <header className="w-full border-b border-zinc-200">
       {/* Top Announcement Bar */}
