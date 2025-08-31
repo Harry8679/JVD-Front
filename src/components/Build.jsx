@@ -43,6 +43,21 @@ const Build = ({
                 </div>
               </div>
             </div>
+            {/* Video (optional) */}
+            {videoId ? (
+              <div className="mt-12 rounded-2xl overflow-hidden shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)] ring-1 ring-zinc-200 bg-black">
+                <div className="relative pt-[56.25%]">
+                  <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src={`https://www.youtube.com/embed/${videoId}`}
+                  title="VOUS SoMi Video"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  />
+                </div>
+              </div>
+            ) : null}
         </div>
     </section>
   )
