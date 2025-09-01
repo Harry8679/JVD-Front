@@ -11,7 +11,7 @@ const Home = () => {
       />
       <Short
         videos={[
-          "hY7m5jjJ9mM", // <-- remplace par tes IDs YouTube
+          "C7Co5SLVbY4", // <-- remplace par tes IDs YouTube
           "dQw4w9WgXcQ",
           "9bZkp7q19f0",
         ]}
