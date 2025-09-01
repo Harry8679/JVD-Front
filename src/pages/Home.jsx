@@ -1,5 +1,6 @@
 import Build from "../components/Build";
 import Short from "../components/Short";
+import SomiBuildingUpdate from "../components/SomiBuildingUpdate";
 
 const Home = () => {
   return (
@@ -20,6 +21,7 @@ const Home = () => {
         ctaLabel="See the vision"
         ctaHref="/vision"
       />
+      <SomiBuildingUpdate raised={7724443} goal={32500000} footnoteGoal={16250000} />
     </>
   );
 };
