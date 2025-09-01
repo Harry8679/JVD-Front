@@ -9,10 +9,11 @@ const SomiBuildingUpdate = ({
 }) => {
   const [data, setData] = React.useState({ raised, goal, footnoteGoal });
   const [loading, setLoading] = React.useState(false);
-  const fmt = new Intl.NumberFormat("fr-US", {
+  const fmt = new Intl.NumberFormat("fr-FR", {
 //   const fmt = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency,
+    // currency,
+    currency: "EUR",
     maximumFractionDigits: 0,
   });
 
