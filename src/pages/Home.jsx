@@ -12,8 +12,8 @@ const Home = () => {
       <Short
         videos={[
           "C7Co5SLVbY4", // <-- remplace par tes IDs YouTube
-          "dQw4w9WgXcQ",
-          "9bZkp7q19f0",
+          "lc8_4sj3G3Q",
+          "v2iRuO_u4aY",
         ]}
         sideTitle="VOUS SOMI GROUNDBREAKING"
         sideSubtitle="Le cœur derrière la vision"
