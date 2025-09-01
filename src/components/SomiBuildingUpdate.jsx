@@ -41,9 +41,18 @@ const SomiBuildingUpdate = ({
     return () => {
         active = false;
     };
-    }, [fetchUrl]);
+  }, [fetchUrl]);
+
+  const pct = Math.max(0, Math.min(100, (data.raised / (data.goal || 1)) * 100));
+
   return (
-    <div>SomiBuildingUpdate</div>
+    <section className="py-10 bg-zinc-700 sm:py-12">
+        <div className="max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-extrabold tracking-wide text-center uppercase sm:text-4xl text-zinc-200">
+                SOMI BUILDING UPDATE
+            </h2>
+        </div>
+    </section>
   )
 }
 
