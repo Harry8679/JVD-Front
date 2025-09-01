@@ -52,6 +52,47 @@ const SomiBuildingUpdate = ({
             <h2 className="text-3xl font-extrabold tracking-wide text-center uppercase sm:text-4xl text-zinc-200">
                 SOMI BUILDING UPDATE
             </h2>
+            {/* Pill bar */}
+            <div className="mt-8">
+                <div
+                    className="relative rounded-full bg-[#ded6cd] ring-1 ring-black/10 shadow-inner h-16 sm:h-20 overflow-hidden"
+                    role="progressbar"
+                    aria-valuenow={Math.round(pct)}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label="Building fund progress">
+                    {/* Fill */}
+                    <div
+                        className="absolute inset-y-0 left-0 bg-[#3a3730] border border-black/30 rounded-full transition-all duration-700"
+                        style={{ width: `${pct}%` }}/>
+                    {/* Center divider */}
+                    <div className="absolute -translate-x-1/2 border-l top-2 bottom-2 left-1/2 border-black/20" />
+
+
+                    {/* Left amount inside the fill */}
+                    <div className="absolute -translate-y-1/2 left-6 top-1/2">
+                        {loading ? (<div className="w-40 h-6 rounded bg-white/20 animate-pulse" />) : 
+                        (<span className="text-xl font-extrabold sm:text-2xl text-zinc-100">
+                            {fmt.format(data.raised)}
+                        </span>
+                        )}
+                    </div>
+
+
+                    {/* Right goal amount */}
+                    <div className="absolute -translate-y-1/2 right-6 top-1/2">
+                        <span className="text-xl sm:text-2xl font-extrabold text-[#3a3730]">
+                            {fmt.format(data.goal)}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {/* Footnote */}
+            {data.footnoteGoal ? (
+                <p className="mt-6 text-sm font-semibold tracking-wide text-center sm:text-base text-zinc-100">
+                    *{fmt.format(data.footnoteGoal)} RAISE GOAL
+                </p>
+                ) : null}
         </div>
     </section>
   )
