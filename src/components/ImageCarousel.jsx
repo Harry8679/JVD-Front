@@ -1,72 +1,59 @@
-// src/components/ImageCarousel.jsx
 import React, { useState, useEffect, useRef, useMemo } from "react";
 
 function parseAspect(aspect = "16/9") {
   const [w, h] = String(aspect).split("/").map(Number);
-  if (!w || !h) return 56.25; // fallback 16:9
-  return (h / w) * 100;       // padding-top %
+  if (!w || !h) return 56.25;       // fallback 16:9
+  return (h / w) * 100;             // padding-top %
 }
 
 const ImageCarousel = ({
-  images = [],           // array de strings ou { src, alt }
-  aspect = "16/9",       // "16/9", "3/2", "4/3"...
+  images = [],
+  aspect = "16/9",
   autoPlay = false,
   interval = 5000,
   className = "",
-  rounded = "2xl",       // "lg" | "xl" | "2xl"
+  rounded = "2xl",
 }) => {
-  // ---- Hooks tjrs au début (avant tout return) ----
   const [index, setIndex] = useState(0);
   const total = images?.length ?? 0;
+  if (!total) return null;
 
-  // refs pour le swipe
   const startX = useRef(null);
   const deltaX = useRef(0);
 
-  // autoplay
   useEffect(() => {
     if (!autoPlay || total <= 1) return;
     const id = setInterval(() => setIndex(i => (i + 1) % total), interval);
     return () => clearInterval(id);
   }, [autoPlay, interval, total]);
 
-  // handlers swipe
-  const onTouchStart = (e) => {
-    startX.current = e.touches[0].clientX;
-    deltaX.current = 0;
-  };
-  const onTouchMove = (e) => {
-    if (startX.current == null) return;
-    deltaX.current = e.touches[0].clientX - startX.current;
-  };
-  const onTouchEnd = () => {
-    const T = 50; // px
+  const onTouchStart = (e) => { startX.current = e.touches[0].clientX; deltaX.current = 0; };
+  const onTouchMove  = (e) => { if (startX.current == null) return; deltaX.current = e.touches[0].clientX - startX.current; };
+  const onTouchEnd   = () => {
+    const T = 50;
     if (deltaX.current >  T) setIndex(i => (i - 1 + total) % total);
     if (deltaX.current < -T) setIndex(i => (i + 1) % total);
-    startX.current = null;
-    deltaX.current = 0;
+    startX.current = null; deltaX.current = 0;
   };
 
-  // clavier
   const onKeyDown = (e) => {
     if (e.key === "ArrowLeft")  setIndex(i => (i - 1 + total) % total);
     if (e.key === "ArrowRight") setIndex(i => (i + 1) % total);
   };
 
-  // ---- dérivés / styles ----
   const slides = useMemo(
     () => images.map(img => (typeof img === "string" ? { src: img, alt: "" } : img)),
     [images]
   );
-  const current = ((index % Math.max(total, 1)) + Math.max(total, 1)) % Math.max(total, 1);
-  const padTop = parseAspect(aspect); // ratio en %
 
-  // mapping arrondis (évite rounded-${...})
+  const padTop = parseAspect(aspect);
   const roundedMap = { lg: "rounded-lg", xl: "rounded-xl", "2xl": "rounded-2xl" };
   const roundedCls = roundedMap[rounded] || "rounded-2xl";
 
-  // ---- rendu (après les hooks) ----
-  if (total === 0) return null;
+  // largeur du track et déplacement juste d’1 slide
+  const trackWidthPct   = total * 100;                // ex: 5 slides -> 500%
+  const slideWidthPct   = 100 / total;                // ex: 20%
+  const translateXPct   = (index * 100) / total;      // ex: 1 slide -> 20%
 
   return (
     <section className={`w-full ${className}`}>
@@ -85,13 +72,20 @@ const ImageCarousel = ({
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
-          {/* Track : left:0 (pas de right:0) pour laisser la largeur s'adapter */}
+          {/* Track */}
           <div
             className="absolute top-0 left-0 flex h-full transition-transform duration-500"
-            style={{ transform: `translateX(-${current * 100}%)` }}
+            style={{
+              width: `${trackWidthPct}%`,
+              transform: `translateX(-${translateXPct}%)`,
+            }}
           >
             {slides.map((s, i) => (
-              <div key={i} className="relative flex-shrink-0 w-full h-full">
+              <div
+                key={i}
+                className="relative flex-shrink-0 h-full"
+                style={{ width: `${slideWidthPct}%` }}
+              >
                 <img
                   src={s.src}
                   alt={s.alt || `Slide ${i + 1}`}
@@ -103,7 +97,7 @@ const ImageCarousel = ({
           </div>
         </div>
 
-        {/* Flèches */}
+        {/* Arrows */}
         {total > 1 && (
           <>
             <button
@@ -111,19 +105,25 @@ const ImageCarousel = ({
               aria-label="Previous slide"
               className="absolute inline-flex items-center justify-center w-10 h-10 -translate-y-1/2 rounded-full shadow left-3 top-1/2 bg-white/85 hover:bg-white ring-1 ring-zinc-200"
             >
-              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+              {/* chevron-left */}
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+                <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+              </svg>
             </button>
             <button
               onClick={() => setIndex(i => (i + 1) % total)}
               aria-label="Next slide"
               className="absolute inline-flex items-center justify-center w-10 h-10 -translate-y-1/2 rounded-full shadow right-3 top-1/2 bg-white/85 hover:bg-white ring-1 ring-zinc-200"
             >
-              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor"><path d="m10 6 1.41 1.41L8.83 10H20v2H8.83l2.58 2.59L10 16l-6-6z"/></svg>
+              {/* chevron-right (corrigé) */}
+              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+                <path d="M8.59 7.41 10 6l6 6-6 6-1.41-1.41L13.17 12z" />
+              </svg>
             </button>
           </>
         )}
 
-        {/* Points */}
+        {/* Dots */}
         {total > 1 && (
           <div className="absolute flex items-center gap-2 -translate-x-1/2 left-1/2 bottom-3">
             {slides.map((_, i) => (
@@ -131,7 +131,7 @@ const ImageCarousel = ({
                 key={i}
                 onClick={() => setIndex(i)}
                 aria-label={`Go to slide ${i + 1}`}
-                className={`h-2.5 w-2.5 rounded-full ring-1 ring-zinc-200 transition ${i === current ? "bg-white" : "bg-white/40"}`}
+                className={`h-2.5 w-2.5 rounded-full ring-1 ring-zinc-200 transition ${i === index ? "bg-white" : "bg-white/40"}`}
               />
             ))}
           </div>
