@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const FloatingCTAs = ({
@@ -11,16 +11,12 @@ const FloatingCTAs = ({
 }) => {
   const [visible, setVisible] = useState(false);
 
-  // clé stable pour satisfaire react-hooks/exhaustive-deps
-  const anchorIdsKey = useMemo(() => anchorIds.join("|"), [anchorIds]);
-
   useEffect(() => {
     const nodes = anchorIds
       .map((id) => document.getElementById(id))
       .filter(Boolean);
 
-    if (!nodes.length) {
-      // s’il n’y a pas d’ancres, on affiche les CTAs flottants
+    if (nodes.length === 0) {
       setVisible(true);
       return;
     }
@@ -35,7 +31,7 @@ const FloatingCTAs = ({
 
     nodes.forEach((n) => obs.observe(n));
     return () => obs.disconnect();
-  }, [anchorIdsKey]);
+  }, [anchorIds]); // ✅ règle react-hooks/exhaustive-deps OK
 
   return (
     <div
