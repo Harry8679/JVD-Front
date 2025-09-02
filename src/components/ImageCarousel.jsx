@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 const ImageCarousel = ({
     images = [], // array of strings or {src, alt}
@@ -8,13 +8,13 @@ const ImageCarousel = ({
     className = "",
     rounded = "2xl",
 }) => {
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(0);
   const total = images.length;
   const current = ((index % total) + total) % total;
 
 
   // Auto-play
-  React.useEffect(() => {
+  useEffect(() => {
   if (!autoPlay || total <= 1) return;
   const id = setInterval(() => setIndex((i) => (i + 1) % total), interval);
   return () => clearInterval(id);
