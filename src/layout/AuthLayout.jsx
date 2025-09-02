@@ -12,7 +12,7 @@ const AuthLayout = ({ title, subtitle, children, footer }) => {
                 </div>
                 {footer ? (
                 <div className="px-6 py-4 text-sm border-t sm:px-8 bg-zinc-50 border-zinc-100 text-zinc-700">
-                {footer}
+                    {footer}
                 </div>
                 ) : null}
             </div>
