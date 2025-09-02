@@ -1,16 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-// Tailwind-only, no external UI libs needed
-// Drop this component into your app and ensure Tailwind is configured.
-// The design mirrors the provided screenshot with fully responsive behavior.
-
+// Header principal (annonce + sous-nav + nav)
 export default function Header() {
   return (
     <header className="w-full border-b border-zinc-200">
-      {/* Top Announcement Bar */}
-      <div className="w-full bg-zinc-900 text-white text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 py-2">
+      {/* Barre d’annonce */}
+      <div className="w-full text-sm text-white bg-zinc-900">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-1 py-2 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-baseline gap-2">
               <span className="font-semibold tracking-tight">Pray First</span>
               <span className="text-zinc-300">21 Days of Prayer and Fasting</span>
@@ -23,93 +21,107 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Partner / Sub Nav Bar */}
+      {/* Sous-nav partenaires */}
       <div className="w-full bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex items-center justify-between gap-4 py-3">
-            {/* Left: logo strip (scrollable on small screens) */}
+            {/* Logos/mentions à gauche */}
             <nav className="flex-1 overflow-x-auto">
               <ul className="flex items-center gap-6 min-w-max text-zinc-800">
-                <li className="whitespace-nowrap font-serif italic text-lg">Friends + Family</li>
-                <li className="whitespace-nowrap font-semibold">VOUSCon</li>
-                <li className="whitespace-nowrap font-semibold">
+                <li className="font-serif text-lg italic whitespace-nowrap">Friends + Family</li>
+                <li className="font-semibold whitespace-nowrap">VOUSCon</li>
+                <li className="font-semibold whitespace-nowrap">
                   <span className="tracking-tight">VOUS</span>
-                  <span className="ml-2 text-xs uppercase tracking-wider align-top">College of Ministry</span>
+                  <span className="ml-2 text-xs tracking-wider uppercase align-top">
+                    College of Ministry
+                  </span>
                 </li>
-                <li className="whitespace-nowrap font-semibold">
+                <li className="font-semibold whitespace-nowrap">
                   <span className="tracking-tight">VOUS</span> <span className="tracking-tight">MERCH</span>
                 </li>
-                <li className="whitespace-nowrap font-semibold flex items-center gap-1">
+                <li className="flex items-center gap-1 font-semibold whitespace-nowrap">
                   <span className="tracking-tight">VOUS</span>
                   <span className="tracking-tight">WORSHIP</span>
                 </li>
               </ul>
             </nav>
 
-            {/* Right: CTAs */}
+            {/* Actions à droite */}
             <div className="flex items-center gap-3 shrink-0">
-              <button className="rounded-xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50 active:scale-[.99] transition">
+              <Link
+                to="/care-request"
+                className="rounded-xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50 active:scale-[.99] transition"
+              >
                 Care Request
-              </button>
-              <button className="rounded-xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50 active:scale-[.99] transition">
-                Login
-              </button>
+              </Link>
+              <Link
+                to="/connexion"
+                className="rounded-xl border border-zinc-300 px-4 py-2 text-sm font-medium hover:bg-zinc-50 active:scale-[.99] transition"
+              >
+                Connexion
+              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Primary Header */}
+      {/* Header principal */}
       <div className="w-full bg-rose-50/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-5 gap-4">
-            {/* Brand mark (placeholder) */}
-            <a href="#" aria-label="VOUS Home" className="flex items-center gap-2">
-              <div className="font-black text-2xl tracking-tight">VOUS</div>
-            </a>
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-4 py-5">
+            {/* Logo / Accueil */}
+            <Link to="/" aria-label="Accueil" className="flex items-center gap-2">
+              <div className="text-2xl font-black tracking-tight">VOUS</div>
+            </Link>
 
-            {/* Center nav inside elevated card */}
+            {/* Nav centrale */}
             <div className="hidden md:flex">
-              <div className="bg-white rounded-2xl shadow-sm ring-1 ring-zinc-100">
+              <div className="bg-white shadow-sm rounded-2xl ring-1 ring-zinc-100">
                 <nav aria-label="Primary" className="px-6">
                   <ul className="flex items-center gap-8 text-base font-semibold text-zinc-900">
                     <li>
-                      <a href="#" className="inline-block py-3 hover:opacity-70">
+                      <Link to="/visit" className="inline-block py-3 hover:opacity-70">
                         Visit VOUS
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#" className="inline-block py-3 hover:opacity-70">
+                      <Link to="/sermons" className="inline-block py-3 hover:opacity-70">
                         Sermons
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#" className="inline-block py-3 hover:opacity-70">
+                      <Link to="/crews" className="inline-block py-3 hover:opacity-70">
                         Crews
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#" className="inline-block py-3 hover:opacity-70">
+                      <Link to="/vision" className="inline-block py-3 hover:opacity-70">
                         Vision
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a href="#" className="inline-block py-3 hover:opacity-70">
+                      <Link to="/give" className="inline-block py-3 hover:opacity-70">
                         Give
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </nav>
               </div>
             </div>
 
-            {/* Right: Menu button */}
+            {/* Boutons menu */}
             <div className="flex items-center gap-3">
-              <button className="md:hidden inline-flex items-center gap-2 rounded-xl border border-zinc-300 px-3 py-2 text-sm font-medium hover:bg-white/70 bg-white">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium bg-white border md:hidden rounded-xl border-zinc-300 hover:bg-white/70"
+              >
                 <span>Menu</span>
                 <HamburgerIcon />
               </button>
-              <button className="hidden md:inline-flex items-center gap-2 text-sm tracking-widest uppercase text-zinc-900">
+              <button
+                type="button"
+                className="items-center hidden gap-2 text-sm tracking-widest uppercase md:inline-flex text-zinc-900"
+              >
                 <span>Menu</span>
                 <HamburgerIcon />
               </button>
@@ -128,7 +140,7 @@ function HamburgerIcon() {
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"
-      className="h-5 w-5"
+      className="w-5 h-5"
     >
       <path d="M3 6.75h18v1.5H3zM3 11.25h18v1.5H3zM3 15.75h18v1.5H3z" />
     </svg>

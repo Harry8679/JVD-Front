@@ -40,7 +40,7 @@ console.log("Registered!", { firstName, lastName, email });
         footer={
         <div className="text-sm">
             Déjà inscrit ? {" "}
-            <a href="/login" className="font-semibold hover:underline">Se connecter</a>
+            <a href="/connexion" className="font-semibold hover:underline">Se connecter</a>
         </div>
         }
     >
