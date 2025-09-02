@@ -2,6 +2,7 @@ import Build from "../components/Build";
 import LatestUpdateCard from "../components/LatestUpdateCard";
 import Short from "../components/Short";
 import SomiBuildingUpdate from "../components/SomiBuildingUpdate";
+import VisionSection from "../components/VisionSection";
 
 const Home = () => {
   return (
@@ -39,6 +40,7 @@ const Home = () => {
         "We extend our heartfelt gratitude for the unwavering support we've received thus far. With faith and trust, we're fully committed to advancing this exciting project together. Thank you for your prayers and contributions thus far!",
         ]}
       />
+      <VisionSection videoId="Ow3xcNv4a4I" ctaPrimaryHref="/vision" ctaSecondaryHref="/give" />
     </>
   );
 };
