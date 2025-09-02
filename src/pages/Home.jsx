@@ -1,4 +1,5 @@
 import Build from "../components/Build";
+import FloatingCTAs from "../components/FloatingCTAs";
 import LatestUpdateCard from "../components/LatestUpdateCard";
 import Short from "../components/Short";
 import SomiBuildingUpdate from "../components/SomiBuildingUpdate";
@@ -41,6 +42,15 @@ const Home = () => {
         ]}
       />
       <VisionSection videoId="uPsJlGybG_M" ctaPrimaryHref="/vision" ctaSecondaryHref="/give" />
+      {/* CTAs flottants : visibles seulement quand #build-cta et #vision-cta sont hors écran */}
+      <FloatingCTAs
+        anchorIds={["build-cta", "vision-cta"]}
+        visionHref="/vision"
+        visionLabel="See the Vision"
+        giveHref="/give"
+        giveLabel="Give Today"
+        topOffset={16}
+      />
     </>
   );
 };
