@@ -14,19 +14,22 @@ const ImageCarousel = ({
   className = "",
   rounded = "2xl",
 }) => {
+  // ---- Hooks toujours AVANT tout return ----
   const [index, setIndex] = useState(0);
   const total = images?.length ?? 0;
-  if (!total) return null;
 
+  // swipe refs
   const startX = useRef(null);
   const deltaX = useRef(0);
 
+  // autoplay
   useEffect(() => {
     if (!autoPlay || total <= 1) return;
     const id = setInterval(() => setIndex(i => (i + 1) % total), interval);
     return () => clearInterval(id);
   }, [autoPlay, interval, total]);
 
+  // handlers swipe
   const onTouchStart = (e) => { startX.current = e.touches[0].clientX; deltaX.current = 0; };
   const onTouchMove  = (e) => { if (startX.current == null) return; deltaX.current = e.touches[0].clientX - startX.current; };
   const onTouchEnd   = () => {
@@ -36,24 +39,28 @@ const ImageCarousel = ({
     startX.current = null; deltaX.current = 0;
   };
 
+  // clavier
   const onKeyDown = (e) => {
     if (e.key === "ArrowLeft")  setIndex(i => (i - 1 + total) % total);
     if (e.key === "ArrowRight") setIndex(i => (i + 1) % total);
   };
 
+  // dérivés
   const slides = useMemo(
     () => images.map(img => (typeof img === "string" ? { src: img, alt: "" } : img)),
     [images]
   );
-
   const padTop = parseAspect(aspect);
   const roundedMap = { lg: "rounded-lg", xl: "rounded-xl", "2xl": "rounded-2xl" };
   const roundedCls = roundedMap[rounded] || "rounded-2xl";
 
-  // largeur du track et déplacement juste d’1 slide
-  const trackWidthPct   = total * 100;                // ex: 5 slides -> 500%
-  const slideWidthPct   = 100 / total;                // ex: 20%
-  const translateXPct   = (index * 100) / total;      // ex: 1 slide -> 20%
+  // largeur du track et déplacement d’1 slide
+  const trackWidthPct = Math.max(total, 1) * 100;      // ex: 5 -> 500%
+  const slideWidthPct = 100 / Math.max(total, 1);      // ex: 20%
+  const translateXPct = (index * 100) / Math.max(total, 1);
+
+  // 👉 seulement maintenant on peut éventuellement ne rien rendre
+  if (total === 0) return null;
 
   return (
     <section className={`w-full ${className}`}>
@@ -75,17 +82,10 @@ const ImageCarousel = ({
           {/* Track */}
           <div
             className="absolute top-0 left-0 flex h-full transition-transform duration-500"
-            style={{
-              width: `${trackWidthPct}%`,
-              transform: `translateX(-${translateXPct}%)`,
-            }}
+            style={{ width: `${trackWidthPct}%`, transform: `translateX(-${translateXPct}%)` }}
           >
             {slides.map((s, i) => (
-              <div
-                key={i}
-                className="relative flex-shrink-0 h-full"
-                style={{ width: `${slideWidthPct}%` }}
-              >
+              <div key={i} className="relative flex-shrink-0 h-full" style={{ width: `${slideWidthPct}%` }}>
                 <img
                   src={s.src}
                   alt={s.alt || `Slide ${i + 1}`}
@@ -110,6 +110,7 @@ const ImageCarousel = ({
                 <path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
               </svg>
             </button>
+
             <button
               onClick={() => setIndex(i => (i + 1) % total)}
               aria-label="Next slide"
