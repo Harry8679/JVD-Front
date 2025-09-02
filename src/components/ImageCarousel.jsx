@@ -1,24 +1,27 @@
-import React, { useState, useEffect, useRef } from "react";
+// src/components/ImageCarousel.jsx
+import React, { useState, useEffect, useRef, useMemo } from "react";
 
 function parseAspect(aspect = "16/9") {
-  const [w, h] = aspect.split("/").map(Number);
+  const [w, h] = String(aspect).split("/").map(Number);
   if (!w || !h) return 56.25; // fallback 16:9
-  return (h / w) * 100; // padding-top %
+  return (h / w) * 100;       // padding-top %
 }
 
 const ImageCarousel = ({
-  images = [],
-  aspect = "16/9",     // "16/9", "3/2", "4/3"...
+  images = [],           // array de strings ou { src, alt }
+  aspect = "16/9",       // "16/9", "3/2", "4/3"...
   autoPlay = false,
   interval = 5000,
   className = "",
-  rounded = "2xl",     // "lg" | "xl" | "2xl"
+  rounded = "2xl",       // "lg" | "xl" | "2xl"
 }) => {
+  // ---- Hooks tjrs au début (avant tout return) ----
   const [index, setIndex] = useState(0);
-  const total = images.length;
-  if (!total) return null;
+  const total = images?.length ?? 0;
 
-  const current = ((index % total) + total) % total;
+  // refs pour le swipe
+  const startX = useRef(null);
+  const deltaX = useRef(0);
 
   // autoplay
   useEffect(() => {
@@ -27,31 +30,43 @@ const ImageCarousel = ({
     return () => clearInterval(id);
   }, [autoPlay, interval, total]);
 
-  // swipe
-  const startX = useRef(null);
-  const deltaX = useRef(0);
-  const onTouchStart = e => { startX.current = e.touches[0].clientX; deltaX.current = 0; };
-  const onTouchMove  = e => { if (startX.current == null) return; deltaX.current = e.touches[0].clientX - startX.current; };
-  const onTouchEnd   = () => {
-    const T = 50;
+  // handlers swipe
+  const onTouchStart = (e) => {
+    startX.current = e.touches[0].clientX;
+    deltaX.current = 0;
+  };
+  const onTouchMove = (e) => {
+    if (startX.current == null) return;
+    deltaX.current = e.touches[0].clientX - startX.current;
+  };
+  const onTouchEnd = () => {
+    const T = 50; // px
     if (deltaX.current >  T) setIndex(i => (i - 1 + total) % total);
     if (deltaX.current < -T) setIndex(i => (i + 1) % total);
-    startX.current = null; deltaX.current = 0;
+    startX.current = null;
+    deltaX.current = 0;
   };
 
-  // keyboard
-  const onKeyDown = e => {
+  // clavier
+  const onKeyDown = (e) => {
     if (e.key === "ArrowLeft")  setIndex(i => (i - 1 + total) % total);
     if (e.key === "ArrowRight") setIndex(i => (i + 1) % total);
   };
 
-  const slides = images.map(img => typeof img === "string" ? { src: img, alt: "" } : img);
+  // ---- dérivés / styles ----
+  const slides = useMemo(
+    () => images.map(img => (typeof img === "string" ? { src: img, alt: "" } : img)),
+    [images]
+  );
+  const current = ((index % Math.max(total, 1)) + Math.max(total, 1)) % Math.max(total, 1);
+  const padTop = parseAspect(aspect); // ratio en %
 
-  // classes sûres (évite purge tailwind)
+  // mapping arrondis (évite rounded-${...})
   const roundedMap = { lg: "rounded-lg", xl: "rounded-xl", "2xl": "rounded-2xl" };
   const roundedCls = roundedMap[rounded] || "rounded-2xl";
 
-  const padTop = parseAspect(aspect); // en %
+  // ---- rendu (après les hooks) ----
+  if (total === 0) return null;
 
   return (
     <section className={`w-full ${className}`}>
@@ -70,7 +85,7 @@ const ImageCarousel = ({
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
-          {/* Track : pas de right:0 → largeur selon contenu */}
+          {/* Track : left:0 (pas de right:0) pour laisser la largeur s'adapter */}
           <div
             className="absolute top-0 left-0 flex h-full transition-transform duration-500"
             style={{ transform: `translateX(-${current * 100}%)` }}
@@ -88,7 +103,7 @@ const ImageCarousel = ({
           </div>
         </div>
 
-        {/* Arrows */}
+        {/* Flèches */}
         {total > 1 && (
           <>
             <button
@@ -108,7 +123,7 @@ const ImageCarousel = ({
           </>
         )}
 
-        {/* Dots */}
+        {/* Points */}
         {total > 1 && (
           <div className="absolute flex items-center gap-2 -translate-x-1/2 left-1/2 bottom-3">
             {slides.map((_, i) => (
