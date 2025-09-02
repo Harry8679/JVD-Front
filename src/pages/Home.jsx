@@ -1,5 +1,6 @@
 import Build from "../components/Build";
 import FloatingCTAs from "../components/FloatingCTAs";
+import ImageCarousel from "../components/ImageCarousel";
 import LatestUpdateCard from "../components/LatestUpdateCard";
 import Short from "../components/Short";
 import SomiBuildingUpdate from "../components/SomiBuildingUpdate";
@@ -51,6 +52,21 @@ const Home = () => {
         giveLabel="Give Today"
         topOffset={16}
       />
+
+      <ImageCarousel
+        images={[
+          { src: "https://images.unsplash.com/photo-1519491050282-cf00c82424b4?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Entrée du campus" },
+          { src: "https://images.unsplash.com/photo-1507692049790-de58290a4334?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Lobby" },
+          { src: "https://images.unsplash.com/photo-1508985307703-52d13b2b06b3?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Auditorium" },
+          { src: "https://images.unsplash.com/photo-1449182210692-60ced46ae304?q=80&w=1604&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Extérieur" },
+          { src: "https://images.unsplash.com/photo-1532140225690-f6d25ab4c891?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Parking" },
+        ]}
+        aspect="16/9"      // ou "3/2", "4/3", etc.
+        autoPlay={true}
+        interval={4500}
+        rounded="2xl"      // arrondis Tailwind: 'lg', 'xl', '2xl'...
+      />
+
     </>
   );
 };
