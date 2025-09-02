@@ -35,7 +35,7 @@ const Login = () => {
         footer={
             <div className="flex items-center justify-between">
                 <a href="#" className="hover:underline">Mot de passe oublié ?</a>
-                <a href="/register" className="font-semibold hover:underline">Pas de compte ? S’inscrire</a>
+                <a href="/inscription" className="font-semibold hover:underline">Pas de compte ? S’inscrire</a>
             </div>
         }
     >
