@@ -100,8 +100,8 @@ export default function Header() {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/give" className="inline-block py-3 hover:opacity-70">
-                        Give
+                      <Link to="/je-veux-donner" className="inline-block py-3 hover:opacity-70">
+                        Je veux donner
                       </Link>
                     </li>
                   </ul>
