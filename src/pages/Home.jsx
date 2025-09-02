@@ -40,7 +40,7 @@ const Home = () => {
         "We extend our heartfelt gratitude for the unwavering support we've received thus far. With faith and trust, we're fully committed to advancing this exciting project together. Thank you for your prayers and contributions thus far!",
         ]}
       />
-      <VisionSection videoId="Ow3xcNv4a4I" ctaPrimaryHref="/vision" ctaSecondaryHref="/give" />
+      <VisionSection videoId="uPsJlGybG_M" ctaPrimaryHref="/vision" ctaSecondaryHref="/give" />
     </>
   );
 };
