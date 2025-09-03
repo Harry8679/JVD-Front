@@ -7,8 +7,8 @@ const Build = ({
   visionHref = "#",
   giveHref = "#",
   videoId = "",
-  ctaPrimaryLabel = "See the Vision",
-  ctaSecondaryLabel = "Give Today",
+  ctaPrimaryLabel = "Voir la Vision",
+  ctaSecondaryLabel = "Je veux donner",
 }) => {
   return (
     <section className="border-t bg-rose-50/40 border-zinc-100">

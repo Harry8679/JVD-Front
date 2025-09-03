@@ -48,7 +48,7 @@ const Home = () => {
         anchorIds={["build-cta", "vision-cta"]}
         visionHref="/vision"
         visionLabel="Voir la Vision"
-        giveHref="/give"
+        giveHref="/je-veux-donner"
         giveLabel="Je veux donner"
         topOffset={16}
       />
