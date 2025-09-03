@@ -29,9 +29,9 @@ export default function Header() {
             <nav className="flex-1 overflow-x-auto">
               <ul className="flex items-center gap-6 min-w-max text-zinc-800">
                 <li className="font-serif text-lg italic whitespace-nowrap">Friends + Family</li>
-                <li className="font-semibold whitespace-nowrap">VOUSCon</li>
+                <li className="font-semibold whitespace-nowrap">MLKCon</li>
                 <li className="font-semibold whitespace-nowrap">
-                  <span className="tracking-tight">VOUS</span>
+                  <span className="tracking-tight">MLK</span>
                   <span className="ml-2 text-xs tracking-wider uppercase align-top">
                     College of Ministry
                   </span>
@@ -80,8 +80,8 @@ export default function Header() {
                 <nav aria-label="Primary" className="px-6">
                   <ul className="flex items-center gap-8 text-base font-semibold text-zinc-900">
                     <li>
-                      <Link to="/visit" className="inline-block py-3 hover:opacity-70">
-                        Visit VOUS
+                      <Link to="/" className="inline-block py-3 hover:opacity-70">
+                        MLK Dons
                       </Link>
                     </li>
                     <li>
