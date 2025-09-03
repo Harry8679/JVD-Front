@@ -47,7 +47,7 @@ const Home = () => {
       <FloatingCTAs
         anchorIds={["build-cta", "vision-cta"]}
         visionHref="/vision"
-        visionLabel="See the Vision"
+        visionLabel="Voir la Vision"
         giveHref="/give"
         giveLabel="Je veux donner"
         topOffset={16}
