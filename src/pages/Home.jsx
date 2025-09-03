@@ -49,7 +49,7 @@ const Home = () => {
         visionHref="/vision"
         visionLabel="See the Vision"
         giveHref="/give"
-        giveLabel="Give Today"
+        giveLabel="Je veux donner"
         topOffset={16}
       />
 
