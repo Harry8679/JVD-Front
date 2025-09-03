@@ -1,3 +1,4 @@
+// src/pages/Home.jsx
 import React from "react";
 import Build from "../components/Build";
 import FloatingCTAs from "../components/FloatingCTAs";
@@ -7,15 +8,15 @@ import Short from "../components/Short";
 import SomiBuildingUpdate from "../components/SomiBuildingUpdate";
 import VisionSection from "../components/VisionSection";
 
-const GOAL_EUR = 32_500_000; // << ton objectif en € (à adapter)
+const GOAL_EUR = 32_500_000; // objectif en euros (même base que Give)
 
 const Home = () => {
-  const [raised, setRaised] = React.useState(null);   // en €
+  const [raised, setRaised] = React.useState(null); // total en €
   const [err, setErr] = React.useState("");
 
   React.useEffect(() => {
     let alive = true;
-    (async () => {
+    const loadTotal = async () => {
       try {
         const res = await fetch("/.netlify/functions/get-donation-total");
         const text = await res.text();
@@ -27,8 +28,12 @@ const Home = () => {
         console.error(e);
         if (alive) { setErr(e.message); setRaised(0); }
       }
-    })();
-    return () => { alive = false; };
+    };
+
+    loadTotal();
+    // (Optionnel) Auto-refresh chaque minute
+    const id = setInterval(loadTotal, 60_000);
+    return () => { alive = false; clearInterval(id); };
   }, []);
 
   const footnoteGoal = Math.max(GOAL_EUR - (raised ?? 0), 0);
@@ -36,8 +41,9 @@ const Home = () => {
   return (
     <>
       <Build />
+
       <Short
-        videos={["C7Co5SLVbY4","lc8_4sj3G3Q","v2iRuO_u4aY"]}
+        videos={["C7Co5SLVbY4", "lc8_4sj3G3Q", "v2iRuO_u4aY"]}
         sideTitle="VOUS SOMI GROUNDBREAKING"
         sideSubtitle="Le cœur derrière la vision"
         sideText="Texte explicatif…"
@@ -45,12 +51,17 @@ const Home = () => {
         ctaHref="/vision"
       />
 
-      {/* Jauge dynamique (affiche 0 en attendant la valeur) */}
+      {/* Jauge dynamique identique à Give.jsx */}
       <SomiBuildingUpdate
         raised={Math.round(raised ?? 0)}
         goal={GOAL_EUR}
         footnoteGoal={Math.round(footnoteGoal)}
       />
+      {err ? (
+        <p className="mt-2 text-sm text-center text-amber-700">
+          Total provisoire indisponible ({err}). Affichage à 0 € en attendant.
+        </p>
+      ) : null}
 
       <LatestUpdateCard
         paragraphs={[
@@ -62,7 +73,11 @@ const Home = () => {
         ]}
       />
 
-      <VisionSection videoId="uPsJlGybG_M" ctaPrimaryHref="/vision" ctaSecondaryHref="/give" />
+      <VisionSection
+        videoId="uPsJlGybG_M"
+        ctaPrimaryHref="/vision"
+        ctaSecondaryHref="/give"
+      />
 
       <FloatingCTAs
         anchorIds={["build-cta", "vision-cta"]}
