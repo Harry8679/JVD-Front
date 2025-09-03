@@ -212,7 +212,7 @@ export default function Give() {
       {/* Bloc de suivi (optionnel) */}
       {raised != null ? (
         <div className="mt-12">
-          <SomiBuildingUpdate raised={Math.round(raised * 100) / 100} goal={32500000} footnoteGoal={16250000} />
+          <SomiBuildingUpdate raised={Math.round(raised * 100) / 100} goal={32500} footnoteGoal={16250000} />
         </div>
       ) : null}
     </main>
