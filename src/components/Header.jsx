@@ -86,17 +86,17 @@ export default function Header() {
                     </li>
                     <li>
                       <Link to="/sermons" className="inline-block py-3 hover:opacity-70">
-                        Sermons
+                        XXXXX
                       </Link>
                     </li>
                     <li>
                       <Link to="/crews" className="inline-block py-3 hover:opacity-70">
-                        Crews
+                        XXXXX
                       </Link>
                     </li>
                     <li>
                       <Link to="/vision" className="inline-block py-3 hover:opacity-70">
-                        Vision
+                        XXXXX
                       </Link>
                     </li>
                     <li>
