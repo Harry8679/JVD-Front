@@ -44,7 +44,7 @@ const Home = () => {
 
       <Short
         videos={["C7Co5SLVbY4", "lc8_4sj3G3Q", "v2iRuO_u4aY"]}
-        sideTitle="VOUS SOMI GROUNDBREAKING"
+        sideTitle="MLK GROUNDBREAKING"
         sideSubtitle="Le cœur derrière la vision"
         sideText="Texte explicatif…"
         ctaLabel="See the vision"

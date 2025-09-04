@@ -1,7 +1,7 @@
 import React from "react";
 
 const Build = ({
-  title = "VOUS SOMI",
+  title = "MLK",
   subtitle = "Building Project",
   heroImage = "https://images.unsplash.com/photo-1469796466635-455ede028aca?q=80&w=2000&auto=format&fit=crop",
   visionHref = "#",
@@ -28,7 +28,7 @@ const Build = ({
           <div className="relative overflow-hidden rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)] ring-1 ring-zinc-200 bg-white">
             <img
               src={heroImage}
-              alt="VOUS SoMi Building Project"
+              alt="MLK Building Project"
               className="block w-full h-auto"
               loading="lazy"
             />

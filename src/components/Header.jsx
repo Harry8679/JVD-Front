@@ -15,7 +15,7 @@ export default function Header() {
             </div>
             <div className="flex items-baseline gap-2 sm:justify-end">
               <span className="font-semibold tracking-tight">Bible in One Year</span>
-              <span className="text-zinc-300">Study the Bible with VOUS</span>
+              <span className="text-zinc-300">Study the Bible with MKL</span>
             </div>
           </div>
         </div>
@@ -37,10 +37,10 @@ export default function Header() {
                   </span>
                 </li>
                 <li className="font-semibold whitespace-nowrap">
-                  <span className="tracking-tight">VOUS</span> <span className="tracking-tight">MERCH</span>
+                  <span className="tracking-tight">MLK</span> <span className="tracking-tight">MERCH</span>
                 </li>
                 <li className="flex items-center gap-1 font-semibold whitespace-nowrap">
-                  <span className="tracking-tight">VOUS</span>
+                  <span className="tracking-tight">MLK</span>
                   <span className="tracking-tight">WORSHIP</span>
                 </li>
               </ul>
@@ -71,7 +71,7 @@ export default function Header() {
           <div className="flex items-center justify-between gap-4 py-5">
             {/* Logo / Accueil */}
             <Link to="/" aria-label="Accueil" className="flex items-center gap-2">
-              <div className="text-2xl font-black tracking-tight">VOUS</div>
+              <div className="text-2xl font-black tracking-tight">MLK</div>
             </Link>
 
             {/* Nav centrale */}
